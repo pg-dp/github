@@ -1,5 +1,8 @@
 # GitHub API access
 
+This is a playground.  
+For libraries have a look at https://developer.github.com/v3/libraries/
+
 ## Configuration
 
 General configuration is stored in config.properties.
