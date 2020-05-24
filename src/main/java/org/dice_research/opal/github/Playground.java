@@ -1,5 +1,7 @@
 package org.dice_research.opal.github;
 
+import java.util.List;
+
 /**
  * Manual API and code testing.
  * 
@@ -16,10 +18,35 @@ public class Playground {
 
 		// Values
 		String owner = Cfg.getGithubOwner();
+		String repo = "civet";
+		String pullNumber = "30";
 
 		// Test: Get repositories
-		if (Boolean.TRUE) {
-			System.out.println(gitHub.getOrganizationRepositories(Cfg.getGithubOwner()));
+		// e.g. [LauNuts, catfish, civet, common, github, KnowledgeBase]
+		if (Boolean.FALSE) {
+			System.out.println(gitHub.listOrganizationRepositories(owner));
+		}
+
+		// Test: Get pull requests
+		// e.g. [33, 31, 30]
+		if (Boolean.FALSE) {
+			System.out.println(Utils.format(githubApi.listPullRequests(owner, repo)));
+		}
+		if (Boolean.FALSE) {
+			System.out.println(gitHub.listPullRequests(owner, repo));
+		}
+
+		// Test: Get reviews on pull request
+		if (Boolean.FALSE) {
+			System.out.println(Utils.format(githubApi.listReviewsOnPullRequest(owner, repo, pullNumber)));
+		}
+		if (Boolean.FALSE) {
+			List<Review> reviews = gitHub.listReviewsOnPullRequest(owner, repo, pullNumber);
+			StringBuilder stringBuilder = new StringBuilder();
+			for (Review review : reviews) {
+				stringBuilder.append(review);
+			}
+			System.out.println(stringBuilder.toString());
 		}
 
 	}
