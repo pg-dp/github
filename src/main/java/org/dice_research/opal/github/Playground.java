@@ -1,7 +1,5 @@
 package org.dice_research.opal.github;
 
-import org.json.simple.JSONArray;
-
 /**
  * Manual API and code testing.
  * 
@@ -9,17 +7,21 @@ import org.json.simple.JSONArray;
  */
 public class Playground {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		String owner = Cfg.getGithubOwner();
+
+		// Classes
 		GithubApi githubApi = new GithubApi();
 		GitHub gitHub = new GitHub();
-		
-		gitHub.listOrganizationRepositories(Cfg.getGithubOwner());
-		
-//		JSONArray jsonArray = githubApi.listOrganizationRepositories(owner);
-//		System.out.println(Utils.format(jsonArray));
-		
-		
+
+		// Values
+		String owner = Cfg.getGithubOwner();
+
+		// Test: Get repositories
+		if (Boolean.TRUE) {
+			System.out.println(gitHub.getOrganizationRepositories(Cfg.getGithubOwner()));
+		}
+
 	}
 
 }

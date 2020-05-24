@@ -1,25 +1,22 @@
 package org.dice_research.opal.github;
 
-import org.json.simple.JSONArray;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+/**
+ * Parses GitHub API responses.
+ * 
+ * @author Adrian Wilke
+ */
 public class GitHub {
 
-	GithubApi githubApi = new GithubApi();
+	private GithubApi githubApi = new GithubApi();
 
-	public JSONArray listOrganizationRepositories(String org) {
-		JSONArray jsonArray = githubApi.listOrganizationRepositories(org);
-//		jsonArray.stream().filter(y->y.toString()).collect();
-//		jsonArray.forEach(System.out::println);
-
-//		jsonArray.stream().filter(obj -> obj instanceof JSONArray).map(obj -> (JSONArray) obj)
-//				.collect(Collectors.toList());
-//
-//		 Object o = jsonArray.stream().filter(JSONArray.class::isInstance).map(JSONArray.class::cast)
-//				.collect(Collectors.toList());
-//
-//		Stream s = jsonArray.stream().map(JSONArray.class::cast);
-
-		return jsonArray;
+	public List<String> getOrganizationRepositories(String org) {
+		String json = githubApi.listOrganizationRepositories(org);
+		return StreamSupport.stream(Utils.toJsonArray(json).spliterator(), false)
+				.map(o -> o.getAsJsonObject().get("name").getAsString()).collect(Collectors.toList());
 	}
 
 }

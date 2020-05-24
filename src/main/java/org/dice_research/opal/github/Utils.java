@@ -8,9 +8,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Map;
 
-import org.json.simple.JSONArray;
-
 import com.cedarsoftware.util.io.JsonWriter;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 
 /**
  * Utilities.
@@ -18,6 +18,13 @@ import com.cedarsoftware.util.io.JsonWriter;
  * @author Adrian Wilke
  */
 public abstract class Utils {
+
+	/**
+	 * Returns formatted lines of JSON array.
+	 */
+	public static String format(String jsonString) {
+		return JsonWriter.formatJson(jsonString);
+	}
 
 	/**
 	 * Increments counter in map.
@@ -52,9 +59,9 @@ public abstract class Utils {
 	}
 
 	/**
-	 * Returns formatted lines of JSON array.
+	 * Returns JSON array.
 	 */
-	public static String format(JSONArray jsonArray) {
-		return JsonWriter.formatJson(jsonArray.toJSONString());
+	public static JsonArray toJsonArray(String json) {
+		return JsonParser.parseString(json).getAsJsonArray();
 	}
 }

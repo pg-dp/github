@@ -4,12 +4,9 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
- * GitHub API requests to JSON.
+ * GitHub API requests to JSON strings.
  * 
  * Logs JSON if {@link Cfg#getPrintJson()} is set.
  * 
@@ -18,14 +15,14 @@ import org.json.simple.parser.ParseException;
 public class GithubApi {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	public static final String GITHUB_API_URL = "https://api.github.com";
+	private static final String GITHUB_API_URL = "https://api.github.com";
 
 	/**
 	 * GET /orgs/:org/repos
 	 * 
 	 * @see https://developer.github.com/v3/repos/#list-organization-repositories
 	 */
-	public JSONArray listOrganizationRepositories(String org) {
+	public String listOrganizationRepositories(String org) {
 		return requestApi("/orgs/" + org + "/repos");
 	}
 
@@ -34,19 +31,20 @@ public class GithubApi {
 	 * 
 	 * @see https://developer.github.com/v3/
 	 */
-	public JSONArray requestApi(String request) {
+	public String requestApi(String request) {
+		LOGGER.info(request);
 
 		try {
-			LOGGER.info(request);
 
-			JSONArray jsonArray = (JSONArray) new JSONParser().parse(Utils.readJsonFromUrl(GITHUB_API_URL + request));
+			String json = Utils.readJsonFromUrl(GITHUB_API_URL + request);
 
 			if (Cfg.getPrintJson()) {
-				LOGGER.info(System.lineSeparator() + Utils.format(jsonArray));
+				LOGGER.info("Response:" + System.lineSeparator() + Utils.format(json));
 			}
 
-			return jsonArray;
-		} catch (ParseException | IOException e) {
+			return json;
+
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}

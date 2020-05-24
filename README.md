@@ -6,11 +6,9 @@ General configuration is stored in config.properties.
 
 ## Used packages
 
-- **json-simple** (com.googlecode.json-simple)  
-  JSON handling  
-  https://code.google.com/archive/p/json-simple/  
-  https://code.google.com/archive/p/json-simple/wikis  
-  https://github.com/fangyidong/json-simple  
+- **Gson**  
+  https://github.com/google/gson  
+  https://github.com/google/gson/blob/master/UserGuide.md
 - **json-io** (com.cedarsoftware)    
   JSON formatting  
   https://github.com/jdereg/json-io
